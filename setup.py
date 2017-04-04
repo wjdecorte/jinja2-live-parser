@@ -8,7 +8,7 @@ setup(
     url='https://github.com/qn7o/jinja2-live-parser',
     license='MIT',
     author='Antonin Bourguignon',
-    author_email='Antonin.Bourguignon@unknown.com',
+    author_email='antonin.bourguignon@gmail.com',
     description='Web-based Jinja template tester',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
