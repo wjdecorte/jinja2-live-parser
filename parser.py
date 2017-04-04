@@ -41,6 +41,13 @@ def convert():
     app.logger.debug('Add the following customer filters to Jinja environment: %s' % ', '.join(custom_filters.keys()))
     jinja2_env.filters.update(custom_filters)
 
+    # Check for environment options
+    if bool(int(request.form['trimblocks'])):
+        jinja2_env.trim_blocks = True
+
+    if bool(int(request.form['lstripblocks'])):
+        jinja2_env.lstrip_blocks = True
+
     # Load the template
     try:
         jinja2_tpl = jinja2_env.from_string(request.form['template'])
@@ -84,7 +91,7 @@ def convert():
         # Replace whitespaces with a visible character (will be grayed with javascript)
         rendered_jinja2_tpl = rendered_jinja2_tpl.replace(' ', u'•')
 
-    return escape(rendered_jinja2_tpl).replace('\n', '<br />')
+    return escape(rendered_jinja2_tpl)  # .replace('\n', '<br />')  - Removed since output is now a textarea
 
 
 if __name__ == "__main__":

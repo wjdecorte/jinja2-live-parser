@@ -11,41 +11,64 @@
 </head>
 
 <body>
+    <div class="page-header">
+      <h1>Jinja Live Parser</h1>
+    </div>
     <form class="container">
         <div class="row">
             <div class="col-md-5">
-                <h1>Template</h1>
+                <h2>Template</h2>
                 <textarea id="template">{% include 'example_template.html' %}</textarea>
             </div>
-            <div class="col-md-5">
-                <h1>Render</h1>
-                <div id="render"></div>
+             <div class="col-md-5">
+                <h2>Values</h2>
+                <textarea id="values">{% include 'example_values.html' %}</textarea>
             </div>
             <div class="col-md-2">
-                <h1>Settings</h1>
+                <h2>Settings</h2>
                 <div id="settings">
                     <label><input type="checkbox" name="showwhitespaces" checked="checked" /> Show whitespaces</label><br/>
                     <label><input type="checkbox" name="dummyvalues" /> Use dummy values</label>
+                    <label><input type="checkbox" name="trimblocks" /> Trim Blocks</label>
+                    <label><input type="checkbox" name="lstripblocks" /> Trim Leading Spaces</label>
                     <label><input type="radio" name="input_type" value="json" checked="checked"/> JSON</label>
                     <label><input type="radio" name="input_type" value="yaml"/> YAML</label>
                     <input type="button" class="btn btn-success" id="convert" value="Convert" />
                     <input type="button" class="btn btn-danger" id="clear" value="Clear" />
                 </div>
+                <br/>
+                <div id="filterbutton">
+                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#filterModal">
+                        Custom Filters
+                    </button>
+                </div>
+                <div class="modal fade" id="filterModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Custom Filters</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><ul>
+                                    {% for f_name, f_func in custom_filters.items() %}
+                                    <li>{{ f_name }}: {{ f_func.func_doc }}</li>
+                                    {% endfor %}
+                                </ul></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-5">
-                <h1>Values</h1>
-                <textarea id="values">{% include 'example_values.html' %}</textarea>
-            </div>
-            <div class="col-md-7">
-                <h1>Custom Filters</h1>
-                <ul>
-                {% for f_name, f_func in custom_filters.items() %}
-                    <li>{{ f_name }}: {{ f_func.func_doc }}</li>
-                {% endfor %}
-                </ul>
+            <div class="col-md-12">
+                <h2>Render</h2>
+                <textarea id="render"></textarea>
             </div>
         </div>
     </form>
